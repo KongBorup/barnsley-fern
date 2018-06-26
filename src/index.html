@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="main.js"></script>
+    <script src="barnsleyfern.js"></script>
+    <title>Barnsley fern</title>
+</head>
+<body>
+    
+    <div id="settings">
+        <img id="cork" src="assets/settings.svg">
+
+        <section>
+            <img id="refresh" src="assets/refresh.svg">
+            <h3>Speed</h3>
+            <input type="range" min="-100" max="100" value="1" id="speed">
+            <h3>Detail</h3>
+            <input type="range" min="100" max="1000" value="400" id="detail">
+            <h3>Procedural</h3>
+            <input type="checkbox" id="procedural" name="procedural" checked>
+            <label for="procedural"></label>
+            <div id="points">
+                <h3>Points</h3>
+                <input type="number" id="numOfPoints" placeholder="0">
+            </div>
+        </section>
+    </div>
+    
+    <section id="drawing">
+        <h1>The Barnsley Fern</h1>
+        <canvas></canvas>
+    </section>
+
+</body>
+</html>
