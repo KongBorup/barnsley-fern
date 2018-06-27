@@ -1,0 +1,9 @@
+[package]
+name = "barnsley_fern"
+version = "0.1.0"
+authors = ["KongBorup <avbroup@gmail.com>"]
+
+[dependencies]
+
+[lib]
+crate-type = ["cdylib"]

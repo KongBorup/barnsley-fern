@@ -1,5 +1,5 @@
 const find = document.querySelector.bind(document)
-const id = document.getElementById.bind(document)
+const id   = document.getElementById.bind(document)
 
 let speed, detail, procedural, numOfPoints, drawing
 

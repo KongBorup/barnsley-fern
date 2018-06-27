@@ -4,6 +4,18 @@
  */
 
 let canvas, c
+let fern = {}
+
+async function setupWebAssembly() {
+    const response = await fetch('barnsley_fern.wasm')
+    const buffer   = await response.arrayBuffer()
+    const module   = await WebAssembly.compile(buffer)
+    const instance = await WebAssembly.instantiate(module)
+    
+    fern = instance.exports
+}
+
+setupWebAssembly()
 
 function canvasSetup() {
     canvas = find('canvas')
@@ -18,36 +30,20 @@ function Point(x, y) {
     c.fillRect(x, y, 5, 5)
 }
 
-let x = 0,
-    y = 0
-
-function f1() {
-    x = 0
-    y = 0.16 * y
-}
-
-function f2() {
-    x =  0.85 * x + 0.04 * y
-    y = -0.04 * x + 0.85 * y + 1.6
-}
-
-function f3() {
-    x = 0.2  * x - 0.26 * y
-    y = 0.23 * x + 0.22 * y + 1.6
-}
-
-function f4() {
-    x = -0.15 * x + 0.28 * y
-    y =  0.26 * x + 0.24 * y + 0.44
-}
+let x = 0.0,
+    y = 0.0
 
 function drawPoint() {
-    let percentage = Math.random()
+    let f
+    const percentage = Math.random()
 
-    if      (percentage <= 0.85) f2()
-    else if (percentage <= 0.92) f3()
-    else if (percentage <= 0.99) f4()
-    else                         f1()
+    if      (percentage <= 0.85) f = 2
+    else if (percentage <= 0.92) f = 3
+    else if (percentage <= 0.99) f = 4
+    else                         f = 1
+
+    x = fern.next_x(x, y, f)
+    y = fern.next_y(x, y, f)
 
     new Point(
                (2.182 + x) * detail, 
@@ -65,6 +61,8 @@ function drawPoint() {
 }
 
 function drawFern(numOfPoints) {
+    if (Object.keys(fern).length === 0) return
+
     if (procedural) {
         if (speed > 0) {
             for (let i = 0; i < speed; i++) {
@@ -78,8 +76,6 @@ function drawFern(numOfPoints) {
             drawPoint()
         }
     }
-
-    
 }
 
 function refreshCanvas(type) {
