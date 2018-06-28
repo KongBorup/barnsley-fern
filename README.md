@@ -1,2 +1,2 @@
 # barnsley-fern
-A client-side generation of points, which generates the Barnsley fern.
+Client-side browser generator for Barnsley's fern.
